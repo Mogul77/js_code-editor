@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**📝 Next.js Code Editor Web App**
 
-## Getting Started
+A simple web application built using Next.js that allows users to:
 
-First, run the development server:
+Write and execute JavaScript code
 
-```bash
+Automatically fix basic coding mistakes
+
+Ask for help through a keyword-based help panel
+
+This project was created as part of an internship assignment.
+
+**🚀 Features**
+
+1. Code Editor + Run Button
+
+Users can write JavaScript inside a code editor.
+
+Clicking Run executes the code safely using eval in a try/catch block.
+
+Output or errors are displayed in a console section at the bottom.
+
+2. Auto-Fix Button
+
+Automatically fixes simple coding mistakes using custom rules:
+
+Auto-Fix Rules Implemented
+
+Add missing semicolons ;
+
+Fix indentation (convert tabs to 2 spaces)
+
+Remove extra/multiple spaces
+
+Fix common bracket/parenthesis issues:
+
+( → )
+
+{ → }
+
+[ → ]
+
+Trim unnecessary spaces at line start/end
+
+3. Help Panel
+
+A help sidebar that opens when clicking the Help button.
+
+The user can type a question and the system replies using keyword-based matching.
+
+**Help Keywords**
+
+Keyword	Response:
+run	"Use the Run button to execute your JavaScript code…"
+fix / autofix	"Auto-Fix cleans missing semicolons and indentation issues…"
+error	"Check your syntax, especially missing brackets or semicolons…"
+console	"All outputs and errors appear in the console section…"
+default	"Sorry, I don’t understand. Try asking about run, fix, or errors."
+
+**📂 Project Structure**
+/app
+   ├── page.jsx        # Main UI
+   └── globals.css     # Styling
+/public
+README.md
+package.json
+
+**🛠️ Tech Stack**
+
+Next.js 14+
+React
+JavaScript
+CSS Modules / Global CSS
+Hosted on Vercel
+
+**▶️ How to Run Locally**
+
+Clone the repository
+
+git clone <your-repo-url>
+
+
+Install dependencies
+
+npm install
+
+
+Start development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open in browser:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
+**🌐 Live Demo**
 
-To learn more about Next.js, take a look at the following resources:
+🔗 Hosted Link: https://js-code-editor-seven.vercel.app/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**🎯 Deliverables Completed**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✔ Next.js project
+✔ Code editor with Run button
+✔ Auto-Fix feature
+✔ Help panel with predefined keywords
+✔ README documentation
+✔ Hosted on Vercel
+✔ Ready for submission
