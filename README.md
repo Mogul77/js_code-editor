@@ -58,19 +58,29 @@ console	"All outputs and errors appear in the console section…"
 default	"Sorry, I don’t understand. Try asking about run, fix, or errors."
 
 **📂 Project Structure**
+
 /app
+
    ├── page.jsx        # Main UI
+   
    └── globals.css     # Styling
+   
 /public
+
 README.md
+
 package.json
 
 **🛠️ Tech Stack**
 
 Next.js 14+
+
 React
+
 JavaScript
+
 CSS Modules / Global CSS
+
 Hosted on Vercel
 
 **▶️ How to Run Locally**
@@ -101,9 +111,15 @@ http://localhost:3000
 **🎯 Deliverables Completed**
 
 ✔ Next.js project
+
 ✔ Code editor with Run button
+
 ✔ Auto-Fix feature
+
 ✔ Help panel with predefined keywords
+
 ✔ README documentation
+
 ✔ Hosted on Vercel
+
 ✔ Ready for submission
