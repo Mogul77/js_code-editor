@@ -2,19 +2,19 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [code, setCode] = useState("");
-  const [output, setOutput] = useState("");
-  const [helpOpen, setHelpOpen] = useState(false);
-  const [helpQuery, setHelpQuery] = useState("");
-  const [helpReply, setHelpReply] = useState("");
+  const [code, setCode] = useState<string>("");
+  const [output, setOutput] = useState<string>("");
+  const [helpOpen, setHelpOpen] = useState<boolean>(false);
+  const [helpQuery, setHelpQuery] = useState<string>("");
+  const [helpReply, setHelpReply] = useState<string>("");
 
   // ----------------------------
   // AUTO-FIX RULES
   // ----------------------------
-  function autoFixCode(code) {
-    let lines = code.split("\n");
+  function autoFixCode(code: string): string {
+    let lines: string[] = code.split("\n");
 
-    let fixed = lines.map((line) => {
+    let fixed = lines.map((line: string) => {
       let trimmed = line.trim();
 
       // Rule 1: Add missing semicolon
@@ -35,7 +35,7 @@ export default function Home() {
     });
 
     // Rule 3: Standard indentation (2 spaces)
-    fixed = fixed.map((line) => "  " + line);
+    fixed = fixed.map((line: string) => "  " + line);
 
     // Rule 4: Fix missing closing brackets
     const openBrackets = (code.match(/{/g) || []).length;
@@ -54,61 +54,68 @@ export default function Home() {
   // ----------------------------
   function runCode() {
     try {
-      const logs = [];
+      const logs: string[] = [];
       const customConsole = {
-        log: (...args) => logs.push(args.join(" ")),
+        log: (...args: unknown[]) => logs.push(args.join(" ")),
       };
 
       const wrapped = new Function("console", code);
       wrapped(customConsole);
 
-      setOutput(logs.join("\n") || "✔ Code executed successfully (no console output)");
-    } catch (err) {
-      setOutput("❌ Error: " + err.message);
+      setOutput(
+        logs.join("\n") ||
+          "✔ Code executed successfully (no console output)"
+      );
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setOutput("❌ Error: " + err.message);
+      } else {
+        setOutput("❌ Unknown Error");
+      }
     }
   }
 
   // ----------------------------
-  // IMPROVED HELP SYSTEM
+  // HELP SYSTEM
   // ----------------------------
-  function getHelpReply(q) {
+  function getHelpReply(q: string): string {
     q = q.toLowerCase();
 
     const helpResponses = [
       {
         keywords: ["semicolon", "semi", ";"],
         answer:
-          "🟡 **Missing semicolon issue:**\nJavaScript statements usually require semicolons. Use Auto-Fix to add them automatically.",
+          "🟡 Missing semicolon: JavaScript usually requires semicolons. Auto-Fix adds them.",
       },
       {
         keywords: ["run", "execute", "output"],
         answer:
-          "▶ **How to run code:**\nPress **Run Code**, and your JS will execute in a safe sandbox. Logs appear in the Console.",
+          "▶ To run the code, press Run Code. Output appears below.",
       },
       {
-        keywords: ["error", "bug", "problem", "issue"],
+        keywords: ["error", "bug", "issue", "problem"],
         answer:
-          "❌ **Common error reasons:**\n• Missing semicolons\n• Missing brackets `{}`\n• Wrong variable names\n• Auto-Fix can help resolve simple issues.",
+          "❌ Common errors: missing semicolons, missing brackets, wrong names. Auto-Fix can help.",
       },
       {
         keywords: ["bracket", "{", "}", "curly"],
         answer:
-          "🟤 **Bracket Help:**\nMake sure every `{` has a matching `}`. Auto-Fix automatically closes missing brackets.",
+          "🟤 Bracket help: every { needs a matching }. Auto-Fix closes missing brackets.",
       },
       {
         keywords: ["indent", "space"],
         answer:
-          "🔵 **Indentation Help:**\nAuto-Fix cleans your indentation into a readable 2-space format.",
+          "🔵 Auto-Fix formats indentation to clean 2-space indentation.",
       },
       {
         keywords: ["autofix", "fix", "clean"],
         answer:
-          "🟢 **Auto-Fix Info:**\nAuto-Fix does:\n• Add missing semicolons\n• Remove extra spaces\n• Fix indentation\n• Add missing `}` brackets",
+          "🟢 Auto-Fix does: add semicolons, remove extra spaces, indentation, close brackets.",
       },
       {
         keywords: ["help", "how", "what"],
         answer:
-          "💡 **What I can help with:**\nTry asking:\n• Why semicolon needed?\n• How to run code?\n• What causes errors?\n• How Auto-Fix works?",
+          "💡 You can ask about semicolons, running code, errors, or auto-fix rules.",
       },
     ];
 
@@ -118,22 +125,18 @@ export default function Home() {
       }
     }
 
-    return (
-      "❓ I couldn't understand your question.\n\nTry asking about:\n" +
-      "• semicolon\n• run\n• error\n• bracket\n• autofix\n• indentation"
-    );
+    return "❓ Sorry, I couldn't understand your question.";
   }
 
   function askHelp() {
     setHelpReply(getHelpReply(helpQuery));
   }
 
+  // UI -------------------------------------------------
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      {/* HEADER */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl font-bold">Code Editor App</h1>
-
         <button
           onClick={() => setHelpOpen(true)}
           className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
@@ -142,7 +145,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* CODE EDITOR */}
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
@@ -150,7 +152,6 @@ export default function Home() {
         className="w-full h-64 bg-gray-800 p-4 rounded text-sm font-mono border border-gray-600 outline-none"
       ></textarea>
 
-      {/* BUTTONS */}
       <div className="flex gap-4 mt-4">
         <button
           onClick={runCode}
@@ -167,12 +168,10 @@ export default function Home() {
         </button>
       </div>
 
-      {/* OUTPUT CONSOLE */}
       <div className="mt-6 bg-black p-4 rounded h-40 overflow-auto text-sm font-mono border border-gray-700">
         {output || "Console output will appear here..."}
       </div>
 
-      {/* HELP PANEL */}
       {helpOpen && (
         <div className="fixed right-0 top-0 w-80 h-full bg-gray-800 shadow-xl p-4 border-l border-gray-700">
           <h2 className="text-lg font-bold mb-2">Help Panel</h2>
